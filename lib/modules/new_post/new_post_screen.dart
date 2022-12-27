@@ -9,7 +9,6 @@ import 'package:chat_app/shared/styles/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 // ignore: use_key_in_widget_constructors
 class NewPostScreen extends StatelessWidget {
   var textCntrlr = TextEditingController();
@@ -18,6 +17,7 @@ class NewPostScreen extends StatelessWidget {
     return BlocConsumer<ChatCubit, ChatStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var usermodel = ChatCubit.get(context).userModel;
         return Scaffold(
           appBar: defaultAppBar(
             context: context,
@@ -52,20 +52,21 @@ class NewPostScreen extends StatelessWidget {
               children: [
                 if (state is ChatCreatePostLoadingState)
                   const LinearProgressIndicator(),
-                if (state is ChatCreatePostLoadingState) const SizedBox(height: 10),
+                if (state is ChatCreatePostLoadingState)
+                  const SizedBox(height: 10),
                 Row(
-                  children:const [
+                  children: [
                      CircleAvatar(
                       radius: 25,
                       backgroundImage: NetworkImage(
-                        'https://img.freepik.com/free-photo/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg?size=626&ext=jpg&ga=GA1.2.680799210.1670709065&semt=sph',
+                        '${usermodel!.image}',
                       ),
                     ),
-                     SizedBox(width: 15),
-                     Expanded(
+                    const SizedBox(width: 15),
+                    Expanded(
                       child: Text(
-                        'Ahmed Ali',
-                        style: TextStyle(height: 1.4),
+                        '${usermodel!.name}',
+                        style: const TextStyle(height: 1.4),
                       ),
                     ),
                   ],
@@ -118,10 +119,10 @@ class NewPostScreen extends StatelessWidget {
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
-                               Icon(IconBroken.Image),
-                               SizedBox(width: 5),
-                               Text(
+                            children: const [
+                              Icon(IconBroken.Image),
+                              SizedBox(width: 5),
+                              Text(
                                 'Add Photo',
                               ),
                             ],
@@ -132,8 +133,8 @@ class NewPostScreen extends StatelessWidget {
                           onPressed: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
-                               Text(
+                            children: const [
+                              Text(
                                 '# Tags',
                               ),
                             ],
